@@ -1,5 +1,6 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, redirect
 from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///todo.db'
@@ -13,9 +14,24 @@ class Post(db.Model):
     due = db.Column(db.DateTime, nullable=False)
 
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def index():
-    return render_template('index.html')
+    if request.method == 'GET':
+        posts = Post.query.all()
+        return render_template('index.html', posts=posts)
+    else:
+        title = request.form.get('title')
+        detail = request.form.get('detail')
+        due = request.form.get('due')
+
+        due = datetime.strptime(due, '%Y-%m-%d')
+
+        new_post = Post(title=title, detail=detail, due=due)
+
+        db.session.add(new_post)
+        db.session.commit()
+
+        return redirect('/')
 
 
 @app.route('/create')

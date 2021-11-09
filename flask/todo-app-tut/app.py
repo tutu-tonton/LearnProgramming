@@ -39,6 +39,12 @@ def create():
     return render_template('create.html')
 
 
+@app.route('/detail/<int:id>')
+def read(id):
+    post = Post.query.get(id)
+    return render_template('detail.html', post=post)
+
+
 # この部分は別ファイル run.py でも良い
 if __name__ == '__main__':
     app.run(debug=True)

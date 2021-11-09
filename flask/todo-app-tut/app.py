@@ -45,6 +45,16 @@ def read(id):
     return render_template('detail.html', post=post)
 
 
+@app.route('/delete/<int:id>')
+def delete(id):
+    post = Post.query.get(id)
+
+    db.session.delete(post)
+    db.session.commit()
+
+    return redirect('/')
+
+
 # この部分は別ファイル run.py でも良い
 if __name__ == '__main__':
     app.run(debug=True)

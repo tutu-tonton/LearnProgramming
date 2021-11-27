@@ -8,6 +8,7 @@ requests = "*"
 streamlit = "*"
 uvicorn = "*"
 fastapi = "*"
+sqlalchemy = "*"
 
 [dev-packages]
 

@@ -13,3 +13,7 @@
 
   - `datetime.datetime().isoformat()`
 
+- SQLAlchemyインストール
+- SQLAlchemy使用するための準備
+  - database.py
+  - engine, session, base

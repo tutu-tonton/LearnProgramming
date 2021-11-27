@@ -7,3 +7,9 @@
   - dict型のデータを、送信時にjson形式にする
   - `requests.post(url, data=json.dumps(data))`
 
+- 予約画面設計
+  
+  - fastapiでは datetime.datetime >> str にする必要あり。メソッド .isoformat() 使う
+
+  - `datetime.datetime().isoformat()`
+

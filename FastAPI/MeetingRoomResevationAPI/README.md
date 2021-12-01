@@ -25,11 +25,17 @@
   - schemas.py
   - pydanticで定義したモデルをORマッパーに対応させる
 
-- データベースへの各種クエリを定義
-  - crud.py
-  - sqlalchemyの書き方で、データベースへの命令が書ける
+## 54,55 データベースへの各種クエリを定義
 
-  ```python
-  def get_users(db:Session,skip:int=0,limit:int=100):
-  return db.query(models.User).offset(skip).limit(limit).all()
-  ```
+- crud.py
+
+- sqlalchemyの書き方で、データベースへの命令が書ける
+
+```python
+  def getでアクセスあったら、dbからデータ取得して、返す_users(db:Session,skip:int=0,limit:int=100):
+    return db.query(models.User).offset(skip).limit(limit).all()
+```
+
+## 56 FastApi Read作成
+
+- getでアクセスあったら、dbからデータ取得して、返す

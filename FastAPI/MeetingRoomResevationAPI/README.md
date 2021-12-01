@@ -38,4 +38,10 @@
 
 ## 56 FastApi Read作成
 
+- main.py
 - getでアクセスあったら、dbからデータ取得して、返す
+
+## 57 FastAPI Create作成
+
+- main.py
+- postあったら、crudで定義した関数実行する

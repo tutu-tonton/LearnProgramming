@@ -19,4 +19,17 @@
 
 - db側のデータ構造定義
   - models.py
-  - sqlalのBaseモデルを継承
+  - sqlalchemyのBaseモデルを継承
+
+- FastAPI側のデータ構造定義
+  - schemas.py
+  - pydanticで定義したモデルをORマッパーに対応させる
+
+- データベースへの各種クエリを定義
+  - crud.py
+  - sqlalchemyの書き方で、データベースへの命令が書ける
+
+  ```python
+  def get_users(db:Session,skip:int=0,limit:int=100):
+  return db.query(models.User).offset(skip).limit(limit).all()
+  ```

@@ -1,6 +1,6 @@
 # 会議室予約API-tutorial
 
-- fastapi側モデル作成・httpメソッド定義
+- fastapi側モデル(後のschemas)作成・オペレーションズ定義
 
 - ユーザー登録画面仮設計
   - フォーム入力値をpost >> 画面に反映されるか
@@ -17,7 +17,7 @@
   - database.py
   - engine, session, base
 
-- db側のデータ構造定義
+- db側のデータ構造(models)定義
   - models.py
   - sqlalchemyのBaseモデルを継承
 
@@ -81,3 +81,12 @@ users_dict = {
   - validation: 定員チェック
     - capacity <> 人数
     - OKなら登録アクション、NGならエラーメッセージ表示
+
+## 62 予約一覧表示
+
+- 一覧表示されるが、名前がidなどになっており見づらい
+- userid->username, roomid->roomnameなどにしたい
+- idをキーにしたdict作成
+- id->username,id->roomnameに変換する関数作成
+- DF表の各列に関数適用
+- 表のカラム名も見やすくする

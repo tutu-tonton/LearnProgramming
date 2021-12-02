@@ -38,6 +38,57 @@ if page == 'users':
 elif page == 'rooms':
     st.title('会議室登録画面')
 
+    # ================== ユーザー一覧取得 ==========
+    url_users = '127.0.0.1:8000/users'
+    res = requests.get(url_users)
+    users = res.json()
+    # users = [
+    #     0 : {
+    #         'username' : 'imanyu'
+    #         'user_id' : 1
+    #     },
+    #     1 : {
+    #         'username' : 'imanishi'
+    #         'user_id' : 2
+    #     }
+    # ]
+
+    # dict型作りたい　key:username, value:user_id
+    users_dict = {}
+    for user in users:
+        users_dict[user['username']] = user['user_id']
+    # users_dict = {
+    #     'imanyu' : 1,
+    #     'imanishi' : 2
+    # }
+
+    # ========== 会議室一覧取得 ==========
+    url_rooms = '127.0.0.1:8000/rooms'
+    res = requests.get(url_rooms)
+    rooms = res.json()
+    # rooms = [
+    #     0 : {
+    #         'room_name' : 'room1'
+    #         'capacity' : 3
+    #         'room_id' : 1
+    #     },
+    #     1 : {
+    #     }
+    # ]
+    # dict型作りたい　{ room_name : { capacity : , room_id: }}
+    rooms_dict = {}
+    for room in rooms:
+        rooms_dict[room['room-name']] = {
+            'room_id': room['room_id']
+            'capacity': room['capacity']
+        }
+    # rooms_dict = {
+    #     'room1' : {
+    #         'room_id' : 1
+    #         'capacity' : 5
+    #     }
+    # }
+
     with st.form(key='room'):
         # room_id: int = random.randint(0, 10)
         room_name: str = st.text_input('会議室名', max_chars=12)
@@ -63,7 +114,9 @@ elif page == 'rooms':
         st.json(res.json())
 
 elif page == 'bookings':
-    st.title('APIテスト画面（予約)')
+    st.title('会議室予約画面')
+
+    # ユーザー一覧取得
 
     with st.form(key='booking'):
         booking_id: int = random.randint(0, 10)

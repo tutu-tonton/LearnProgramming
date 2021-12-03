@@ -211,7 +211,16 @@ elif page == 'bookings':
             ).isoformat()
         }
         # validation : 会議室の定員チェック
-        if booked_num <= capacity:
+        if booked_num > capacity:
+            st.error(
+                f'{room_name}の定員は、{capacity}名です。{capacity}以下の予約人数のみ受け付けております。')
+        # validation : 開始時刻->終了時刻になってるか
+        elif start_time >= end_time:
+            st.error('開始時刻が終了時刻を超えています')
+        # validation : 営業時間内に予約しているか
+        elif start_time < datetime.time(hour=9, minute=0, second=0) or end_time > datetime.time(hour=20, minute=0, second=0):
+            st.error('利用時間は９時20時になります')
+        else:
             # st.write('## 送信データ')
             # st.json(data)
             # st.write('## レスポンス結果')
@@ -222,7 +231,5 @@ elif page == 'bookings':
             )
             if res.status_code == 200:
                 st.success('予約完了しました')
-            st.json(res.json())
-        else:
-            st.error(
-                f'{room_name}の定員は、{capacity}名です。{capacity}以下の予約人数のみ受け付けております。')
+            elif res.status_code == 404 and res.json()['detail'] == 'Another Booking Already Exists':
+                st.error('指定の時間には別の方の予約が入っております。')

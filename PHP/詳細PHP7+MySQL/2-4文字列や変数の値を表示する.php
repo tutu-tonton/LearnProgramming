@@ -30,7 +30,7 @@ var_dump($colors);
 ?>
 </pre>
 
-<!-- 文字列埋め込み -->
+<!-- 文字列内に変数埋め込み -->
 <?php
 $total = 80 + 40;
 $result = $total - 5;
